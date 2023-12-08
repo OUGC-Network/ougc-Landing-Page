@@ -1,0 +1,11 @@
+{
+  "member.php": {
+    "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login"
+    ]
+  },
+  "contact.php": ""
+}

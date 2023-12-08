@@ -1,0 +1,14 @@
+{
+  "showToGroups": {
+    "optionscode": "groupselect",
+    "value": "3,4,6"
+  },
+  "exceptScripts": {
+    "optionscode": "textarea",
+    "value": "{\n  \"member.php\": {\n    \"action\": [\n      \"register\",\n      \"do_register\",\n      \"login\",\n      \"do_login\"\n    ]\n  },\n  \"contact.php\": \"\"\n}"
+  },
+  "redirectPage": {
+    "optionscode": "text",
+    "value": "./member.php?action=register"
+  }
+}
