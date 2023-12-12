@@ -34,8 +34,6 @@ use MyBB;
 
 use function ougc\LandingPage\Core\getSetting;
 
-use function ougc\LandingPage\Core\loadLanguage;
-
 use const THIS_SCRIPT;
 
 use const TIME_NOW;
@@ -90,6 +88,6 @@ function global_start()
 
     $mybb->settings['redirects'] = $mybb->user['showredirect'] = 0;
 
-    redirect(getSetting('redirectPage'));
+    redirect($mybb->settings['bburl'] . '/' . getSetting('redirectPage'));
     //my_setcookie(), my_unsetcookie()
 }

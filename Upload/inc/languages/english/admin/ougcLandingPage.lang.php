@@ -36,9 +36,26 @@ $l = [
     'setting_ougcLandingPage_showToGroups' => 'Affected Groups',
     'setting_ougcLandingPage_showToGroups_desc' => 'Select the groups that will be met with a landing page.',
     'setting_ougcLandingPage_exceptScripts' => 'Excepted Scripts',
-    'setting_ougcLandingPage_exceptScripts_desc' => 'Comma separate a list of scripts to bypass this feature.',
+    'setting_ougcLandingPage_exceptScripts_desc' => 'A JSON list of scripts to bypass when redirecting users. Default: <pre>
+{
+  "captcha.php": "",
+  "contact.php": "",
+  "css.php": "",
+  "member.php": {
+    "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login",
+      "logout"
+    ]
+},
+  "task.php": "",
+  "xmlhttp.php": ""
+}
+</pre>',
     'setting_ougcLandingPage_redirectPage' => 'Redirect To',
-    'setting_ougcLandingPage_redirectPage_desc' => 'Select the page to where users will be redirected to (land to).',
+    'setting_ougcLandingPage_redirectPage_desc' => 'Select the page to where users will be redirected to relative to the board url without trailing slash. Default: <code>member.php?action=register</code>',
 
     'ougcLandingPagePluginLibrary' => 'This plugin requires <a href="{1}">PluginLibrary</a> version {2} or later to be uploaded to your forum.',
 ];
