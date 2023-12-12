@@ -141,7 +141,7 @@ this plugin working.
 
 ### Force Group Change <a name="usage_force_group_change"></a>
 
-By default, this plugin redirects guest to the registration page, with the freedom to login if already registered.
+By default, this plugin redirects guests to the registration page, with the freedom to login if already registered.
 
 Using this logic, it is possible to get creative in order to achieve different results. The following would be the
 settings necessary to force specific groups to join or leave a group.
@@ -171,6 +171,12 @@ settings necessary to force specific groups to join or leave a group.
   "xmlhttp.php": ""
 }
 ```
+
+#### Example preview :
+
+Using [OUGC Announcement Bars](https://github.com/Sama34/OUGC-Announcement-Bars) to display custom messages.
+
+![ougcLandingPage03](https://github.com/OUGC-Network/OUGC-Landing-Page/assets/1786584/d786d567-aa4b-4440-a06e-164afde1a124)
 
 [Go up to Table of Contents](#table_of_contents)
 
