@@ -1,6 +1,6 @@
 <p align="center">
     <a href="" rel="noopener">
-        <img width="700" height="400" src="https://github.com/OUGC-Network/OUGC-Landing-Page/assets/1786584/03e895ab-a315-4fe0-955b-2a8da23b8e4b" alt="Project logo">
+        <img width="700" height="400" src="https://github.com/OUGC-Network/OUGC-Landing-Page/assets/1786584/e05e14b1-f25e-4618-80f1-3d4bb3a0b2d7" alt="Project logo">
     </a>
 </p>
 
@@ -80,7 +80,7 @@ A setup that meets the following requirements is necessary to use this plugin.
 
 Follow the next steps in order to install a copy of this plugin on your forum.
 
-1. Download the latest package from the [MyBB Extend](https://community.mybb.com/mods.php?action=view&pid=XXXX) site or
+1. Download the latest package from the [MyBB Extend](https://community.mybb.com/mods.php?action=view&pid=1580) site or
    from
    the [repository releases](https://github.com/OUGC-Network/OUGC-Landing-Page/releases/latest).
 2. Upload the contents of the _Upload_ folder to your MyBB root directory.
