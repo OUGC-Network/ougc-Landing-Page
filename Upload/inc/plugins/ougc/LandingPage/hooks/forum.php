@@ -73,7 +73,7 @@ function global_start()
             }
 
             foreach ($inputKeys as $inputKey => $inputValues) {
-                if (!isset($mybb->input[$inputKey]) || in_array($mybb->get_input($inputKey), $inputValues)) {
+                if (isset($mybb->input[$inputKey]) && in_array($mybb->get_input($inputKey), $inputValues)) {
                     $showLandingPage = false;
 
                     break;
