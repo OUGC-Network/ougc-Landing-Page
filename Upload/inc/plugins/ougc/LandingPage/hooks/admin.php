@@ -56,3 +56,8 @@ function admin_config_plugins_deactivate()
         admin_redirect('index.php?module=config-plugins');
     }
 }
+
+function admin_config_settings_begin()
+{
+    loadLanguage();
+}

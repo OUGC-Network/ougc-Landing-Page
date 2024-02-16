@@ -28,7 +28,7 @@
     - [Template Modifications](#template_modifications)
 - [Settings](#settings)
 - [Usage](#usage)
-    - [Force Group Change](#usage_force_group_change)
+    - [Example Configurations](#usage_examples)
 - [Built Using](#built_using)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
@@ -109,9 +109,13 @@ Below you can find a description of the plugin settings.
 - **Affected Groups** `select`
     - _Select the groups that will be met with a landing page._
 - **Redirect To** `text` Default: `member.php?action=register`
-    - _Select the page to where users will be redirected to (land to) relative to the board url._
-- **Excepted Scripts** `text`
-    - _A JSON list of scripts to bypass when redirecting users. Default:_
+    - _Select the link to where users will be redirected to relative to the board url without trailing slash.
+      Default: <code style="color: darkgreen;">member.php?action=register</code>_
+- **Exempted Scripts** `text`
+    - _A JSON list of scripts to bypass when redirecting users.<br /> <i style="color: orange;">Note that the "Redirect
+      To" link has to be added to this setting to avoid redirection loops.</i><br /> <i style="color: orange;">Note
+      that most default script files and actions are required for essential usage, for example, to load style sheets or
+      allow users to log in to the forum.</i><br /> Default:_
 
 ```JSON
 {
@@ -139,17 +143,15 @@ Below you can find a description of the plugin settings.
 This plugin has no additional configurations; after activating make sure to modify the global settings in order to get
 this plugin working.
 
-### Force Group Change <a name="usage_force_group_change"></a>
+### 🛠 Example Configurations <a name = "usage_examples"></a>
 
-By default, this plugin redirects guests to the registration page, with the freedom to login if already registered.
+#### Redirect to Portal
 
-Using this logic, it is possible to get creative in order to achieve different results. The following would be the
-settings necessary to force specific groups to join or leave a group.
+The following would be the necessary configuration to force users to land to the portal page.
 
-- **Redirect To** `text`
-    - Value: `usercp.php?action=usergroups`
-- **Excepted Scripts** `text`
-    - Value:
+- **Redirect To:** `portal.php`
+- **Exempted Scripts** `text`
+    - _This adds the `portal.php` page to the exemption script._
 
 ```JSON
 {
@@ -158,25 +160,94 @@ settings necessary to force specific groups to join or leave a group.
   "css.php": "",
   "member.php": {
     "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login",
       "logout"
     ]
   },
-  "usercp.php": {
-    "action": [
-      "usergroups",
-      "do_usergroups"
-    ]
-  },
   "task.php": "",
-  "xmlhttp.php": ""
+  "xmlhttp.php": "",
+  "portal.php": ""
 }
 ```
 
-#### Example preview :
+#### Redirect to the "Group Memberships" page in the User Control Panel
+
+The following would be the necessary configuration to force users to join or leave a group.
+
+- **Affected Groups:** _Select "Premium" group._
+- **Redirect To:** `usercp.php?action=usergroups`
+- **Exempted Scripts** `text`
+    - _This adds the `usercp.php?action=usergroups` page to the exemption script._
+
+```JSON
+{
+  "captcha.php": "",
+  "contact.php": "",
+  "css.php": "",
+  "member.php": {
+    "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login",
+      "logout"
+    ]
+  },
+  "task.php": "",
+  "xmlhttp.php": "",
+  "usercp.php": {
+    "action": [
+      "usergroups"
+    ]
+  }
+}
+```
+
+**Preview**
 
 Using [OUGC Announcement Bars](https://github.com/Sama34/OUGC-Announcement-Bars) to display custom messages.
 
 ![ougcLandingPage03](https://github.com/OUGC-Network/OUGC-Landing-Page/assets/1786584/d786d567-aa4b-4440-a06e-164afde1a124)
+
+#### Redirect to a custom ([OUGC Pages](https://github.com/OUGC-Network/OUGC-Pages)) page
+
+The following would be the necessary configuration to force users to land to a custom page, along exempting a custom
+page category.
+
+- **Redirect To:** `pages.php?page=unique-url`
+- **Exempted Scripts** `text`
+    - _This adds the `pages.php?page=unique-url` page to the exemption script, along a page category, both identified by
+      their "Unique URL" as `unique-url`._
+
+```JSON
+{
+  "captcha.php": "",
+  "contact.php": "",
+  "css.php": "",
+  "member.php": {
+    "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login",
+      "logout"
+    ]
+  },
+  "task.php": "",
+  "xmlhttp.php": "",
+  "pages.php": {
+    "category": [
+      "unique-url"
+    ],
+    "page": [
+      "unique-url"
+    ]
+  }
+}
+```
 
 [Go up to Table of Contents](#table_of_contents)
 

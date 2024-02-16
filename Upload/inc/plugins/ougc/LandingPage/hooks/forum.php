@@ -40,17 +40,9 @@ use const TIME_NOW;
 
 function global_start()
 {
-    global $templatelist, $mybb;
+    global $mybb;
 
-    if (isset($templatelist)) {
-        $templatelist .= ',';
-    } else {
-        $templatelist = '';
-    }
-
-    $templatelist .= ',';
-
-    if (!is_member(getSetting('showToGroups'))) {
+    if (!getSetting('redirectPage') || !is_member(getSetting('showToGroups'))) {
         return;
     }
 
@@ -63,6 +55,16 @@ function global_start()
     $showLandingPage = true;
 
     $bypassScripts = (array)json_decode(getSetting('exceptScripts'));
+
+    if (!$bypassScripts) {
+        $bypassScripts = [
+            'captcha.php' => '',
+            'contact.php' => '',
+            'css.php' => '',
+            'task.php' => '',
+            'xmlhttp.php' => ''
+        ];
+    }
 
     foreach ($bypassScripts as $fileName => $inputKeys) {
         if ($scriptName === $fileName) {

@@ -36,7 +36,9 @@ $l = [
     'setting_ougcLandingPage_showToGroups' => 'Affected Groups',
     'setting_ougcLandingPage_showToGroups_desc' => 'Select the groups that will be met with a landing page.',
     'setting_ougcLandingPage_exceptScripts' => 'Exempted Scripts',
-    'setting_ougcLandingPage_exceptScripts_desc' => 'A JSON list of scripts to bypass when redirecting users. Default: <pre>
+    'setting_ougcLandingPage_redirectPage' => 'Redirect To',
+    'setting_ougcLandingPage_redirectPage_desc' => 'Select the link to where users will be redirected to relative to the board url without trailing slash. Default: <code style="color: darkgreen;">member.php?action=register</code>',
+    'setting_ougcLandingPage_exceptScripts_desc' => 'A JSON list of scripts to bypass when redirecting users.<br /> <i style="color: orange;">Note that the "Redirect To" link has to be added to this setting to avoid redirection loops.</i><br /> <i style="color: orange;">Note that most default script files and actions are required for essential usage, for example, to load style sheets or allow users to log in to the forum.</i><br />  Default: <pre style="color: darkgreen;">
 {
   "captcha.php": "",
   "contact.php": "",
@@ -54,8 +56,6 @@ $l = [
   "xmlhttp.php": ""
 }
 </pre>',
-    'setting_ougcLandingPage_redirectPage' => 'Redirect To',
-    'setting_ougcLandingPage_redirectPage_desc' => 'Select the page to where users will be redirected to relative to the board url without trailing slash. Default: <code>member.php?action=register</code>',
 
     'ougcLandingPagePluginLibrary' => 'This plugin requires <a href="{1}">PluginLibrary</a> version {2} or later to be uploaded to your forum.',
 ];
