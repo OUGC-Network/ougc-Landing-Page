@@ -54,9 +54,9 @@ function global_start()
 
     $showLandingPage = true;
 
-    $bypassScripts = (array)json_decode(getSetting('exceptScripts'));
+    $bypassScripts = json_decode(getSetting('exceptScripts'), true);
 
-    if (!$bypassScripts) {
+    if (empty($bypassScripts)) {
         $bypassScripts = [
             'captcha.php' => '',
             'contact.php' => '',
