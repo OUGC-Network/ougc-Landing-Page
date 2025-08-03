@@ -29,6 +29,9 @@
 - [Settings](#settings)
 - [Usage](#usage)
     - [Force Group Change](#usage_force_group_change)
+    - [Redirect to Portal](#usage_redirect_to_portal)
+    - [Redirect From Index to Forum](#usage_redirect_index_to_forum)
+    - [Redirect to Custom Page](#usage_redirect_ougc_pages)
 - [Built Using](#built_using)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
@@ -110,14 +113,13 @@ Below you can find a description of the plugin settings.
     - _Select the groups that will be met with a landing page._
 - **Redirect To** `text` Default: `member.php?action=register`
     - _Select the page to where users will be redirected to (land to) relative to the board url._
-- **Excepted Scripts** `text`
+- **Exempt Scripts** `text`
     - _A JSON list of scripts to bypass when redirecting users. Default:_
 
 ```JSON
 {
   "captcha.php": "",
   "contact.php": "",
-  "css.php": "",
   "member.php": {
     "action": [
       "register",
@@ -126,9 +128,7 @@ Below you can find a description of the plugin settings.
       "do_login",
       "logout"
     ]
-  },
-  "task.php": "",
-  "xmlhttp.php": ""
+  }
 }
 ```
 
@@ -139,23 +139,21 @@ Below you can find a description of the plugin settings.
 This plugin has no additional configurations; after activating make sure to modify the global settings in order to get
 this plugin working.
 
-### Force Group Change <a name="usage_force_group_change"></a>
-
 By default, this plugin redirects guest to the registration page, with the freedom to login if already registered.
 
-Using this logic, it is possible to get creative in order to achieve different results. The following would be the
-settings necessary to force specific groups to join or leave a group.
+### Force Group Change <a name="usage_force_group_change"></a>
+
+The following would be the settings necessary to force specific groups to join or leave a group.
 
 - **Redirect To** `text`
-    - Value: `usercp.php?action=usergroups`
-- **Excepted Scripts** `text`
-    - Value:
+  - Value: `usercp.php?action=usergroups`
+- **Exempt Scripts** `text`
+  - Value:
 
 ```JSON
 {
   "captcha.php": "",
   "contact.php": "",
-  "css.php": "",
   "member.php": {
     "action": [
       "logout"
@@ -166,9 +164,115 @@ settings necessary to force specific groups to join or leave a group.
       "usergroups",
       "do_usergroups"
     ]
+  }
+}
+```
+
+### Redirect to Portal <a name="usage_redirect_to_portal"></a>
+
+The following would be the settings necessary to force specific groups to be redirected to the portal.
+
+- **Redirect To** `text`
+  - Value: `portal.php`
+- **Exempt Scripts** `text`
+  - Value:
+
+```JSON
+{
+  "captcha.php": "",
+  "contact.php": "",
+  "member.php": {
+    "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login",
+      "logout"
+    ]
   },
-  "task.php": "",
-  "xmlhttp.php": ""
+  "portal.php": ""
+}
+```
+
+### Redirect From Index to Forum <a name="usage_redirect_index_to_forum"></a>
+
+The following would be the settings necessary to force specific groups to be redirected from the index page to forum which forum identifier (`fid`) is `2`.
+
+- **Redirect To** `text`
+  - Value: `forumdisplay.php?fid=2`
+- **Exempt Scripts** `text`
+  - Value:
+
+```JSON
+{
+  "announcements.php": "",
+  "attachment.php": "",
+  "calendar.php": "",
+  "captcha.php": "",
+  "contact.php": "",
+  "editpost.php": "",
+  "forumdisplay.php": {
+    "fid": [
+      2
+    ]
+  },
+  "managegroup.php": "",
+  "member.php": "",
+  "memberlist.php": "",
+  "misc.php": "",
+  "modcp.php": "",
+  "moderation.php": "",
+  "newreply.php": "",
+  "newthread.php": "",
+  "online.php": "",
+  "polls.php": "",
+  "portal.php": "",
+  "printthread.php": "",
+  "private.php": "",
+  "ratethread.php": "",
+  "report.php": "",
+  "reputation.php": "",
+  "search.php": "",
+  "sendthread.php": "",
+  "showteam.php": "",
+  "showthread.php": "",
+  "stats.php": "",
+  "syndication.php": "",
+  "usercp.php": "",
+  "warnings.php": ""
+}
+```
+
+### Redirect to Custom Page <a name="usage_redirect_ougc_pages"></a>
+
+The following would be the settings necessary to force specific groups to be redirected to a custom page using the [ougc Pages](https://community.mybb.com/mods.php?action=view&pid=6) plugin which page unique url (`url`) is `unique-url`.
+
+- **Redirect To** `text`
+  - Value: `pages.php?page=unique-url`
+- **Exempt Scripts** `text`
+  - Value:
+
+```JSON
+{
+  "captcha.php": "",
+  "contact.php": "",
+  "member.php": {
+    "action": [
+      "register",
+      "do_register",
+      "login",
+      "do_login",
+      "logout"
+    ]
+  },
+  "pages.php": {
+    "category": [
+      "unique-url"
+    ],
+    "page": [
+      "unique-url"
+    ]
+  }
 }
 ```
 

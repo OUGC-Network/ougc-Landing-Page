@@ -35,7 +35,7 @@ $l = [
 
     'setting_ougcLandingPage_showToGroups' => 'Affected Groups',
     'setting_ougcLandingPage_showToGroups_desc' => 'Select the groups that will be met with a landing page.',
-    'setting_ougcLandingPage_exceptScripts' => 'Excepted Scripts',
+    'setting_ougcLandingPage_exceptScripts' => 'Exempt Scripts',
     'setting_ougcLandingPage_exceptScripts_desc' => 'A JSON list of scripts to bypass when redirecting users. Default: <pre>
 {
   "captcha.php": "",
