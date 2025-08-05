@@ -62,7 +62,13 @@ function global_start()
 
     $showLandingPage = true;
 
-    $bypassScripts = (array)json_decode(getSetting('exceptScripts'));
+    $bypassScriptsJson = getSetting('exceptScripts');
+
+    $bypassScripts = json_decode($bypassScriptsJson, true);
+
+    if (empty($bypassScripts) && $bypassScriptsJson !== '') {
+        return;
+    }
 
     foreach ($bypassScripts as $fileName => $inputKeys) {
         if ($scriptName === $fileName) {

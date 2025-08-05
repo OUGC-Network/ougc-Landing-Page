@@ -53,7 +53,7 @@ $l = [
   "task.php": "",
   "xmlhttp.php": ""
 }
-</pre>',
+</pre><br/>Use online tools like <a href="https://jsonformatter.curiousconcept.com/" target="_blank" rel="noopener noreferrer">JSON Formatter & Validator</a> to help you format your JSON correctly.',
     'setting_ougcLandingPage_redirectPage' => 'Redirect To',
     'setting_ougcLandingPage_redirectPage_desc' => 'Select the page to where users will be redirected to relative to the board url without trailing slash. Default: <code>member.php?action=register</code>',
 
