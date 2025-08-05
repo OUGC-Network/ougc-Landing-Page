@@ -30,19 +30,10 @@ declare(strict_types=1);
 
 namespace ougc\LandingPage\Admin;
 
-use DirectoryIterator;
+use stdClass;
+use PluginLibrary;
 
-use MybbStuff_MyAlerts_AlertTypeManager;
-
-use MybbStuff_MyAlerts_Entity_AlertType;
-
-use function file_get_contents;
-use function json_decode;
 use function ougc\LandingPage\Core\loadLanguage;
-
-use function ougc\LandingPage\Core\loadPluginLibrary;
-
-use const MYBB_ROOT;
 
 function pluginInfo(): array
 {
@@ -67,7 +58,7 @@ function pluginInfo(): array
     ];
 }
 
-function pluginActivate()
+function pluginActivate(): void
 {
     global $PL, $cache, $lang;
 
@@ -124,14 +115,6 @@ function pluginActivate()
     $cache->update('ougc_plugins', $plugins);
 }
 
-function pluginDeactivate()
-{
-}
-
-function pluginInstall()
-{
-}
-
 function pluginIsInstalled(): bool
 {
     global $cache;
@@ -141,7 +124,7 @@ function pluginIsInstalled(): bool
     return isset($plugins['LandingPage']);
 }
 
-function pluginUninstall()
+function pluginUninstall(): void
 {
     global $PL, $cache;
 
@@ -160,5 +143,36 @@ function pluginUninstall()
         $cache->update('ougc_plugins', $plugins);
     } else {
         $cache->delete('ougc_plugins');
+    }
+}
+
+function pluginLibraryRequirements(): stdClass
+{
+    return (object)pluginInfo()['pl'];
+}
+
+function loadPluginLibrary(): void
+{
+    global $PL, $lang;
+
+    loadLanguage();
+
+    $fileExists = file_exists(PLUGINLIBRARY);
+
+    if ($fileExists && !($PL instanceof PluginLibrary)) {
+        require_once PLUGINLIBRARY;
+    }
+
+    if (!$fileExists || $PL->version < pluginLibraryRequirements()->version) {
+        flash_message(
+            $lang->sprintf(
+                $lang->ougcLandingPagePluginLibrary,
+                pluginLibraryRequirements()->url,
+                pluginLibraryRequirements()->version
+            ),
+            'error'
+        );
+
+        admin_redirect('index.php?module=config-plugins');
     }
 }

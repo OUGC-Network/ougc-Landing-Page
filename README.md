@@ -146,9 +146,9 @@ By default, this plugin redirects guest to the registration page, with the freed
 The following would be the settings necessary to force specific groups to join or leave a group.
 
 - **Redirect To** `text`
-  - Value: `usercp.php?action=usergroups`
+    - Value: `usercp.php?action=usergroups`
 - **Exempt Scripts** `text`
-  - Value:
+    - Value:
 
 ```JSON
 {
@@ -173,9 +173,9 @@ The following would be the settings necessary to force specific groups to join o
 The following would be the settings necessary to force specific groups to be redirected to the portal.
 
 - **Redirect To** `text`
-  - Value: `portal.php`
+    - Value: `portal.php`
 - **Exempt Scripts** `text`
-  - Value:
+    - Value:
 
 ```JSON
 {
@@ -196,12 +196,13 @@ The following would be the settings necessary to force specific groups to be red
 
 ### Redirect From Index to Forum <a name="usage_redirect_index_to_forum"></a>
 
-The following would be the settings necessary to force specific groups to be redirected from the index page to forum which forum identifier (`fid`) is `2`.
+The following would be the settings necessary to force specific groups to be redirected from the index page to forum
+which forum identifier (`fid`) is `2`.
 
 - **Redirect To** `text`
-  - Value: `forumdisplay.php?fid=2`
+    - Value: `forumdisplay.php?fid=2`
 - **Exempt Scripts** `text`
-  - Value:
+    - Value:
 
 ```JSON
 {
@@ -243,14 +244,19 @@ The following would be the settings necessary to force specific groups to be red
 }
 ```
 
+- **Permanent Redirect** `yesNo`
+    - Value: `Yes`
+
 ### Redirect to Custom Page <a name="usage_redirect_ougc_pages"></a>
 
-The following would be the settings necessary to force specific groups to be redirected to a custom page using the [ougc Pages](https://community.mybb.com/mods.php?action=view&pid=6) plugin which page unique url (`url`) is `unique-url`.
+The following would be the settings necessary to force specific groups to be redirected to a custom page using
+the [ougc Pages](https://community.mybb.com/mods.php?action=view&pid=6) plugin which page unique url (`url`) is
+`unique-url`.
 
 - **Redirect To** `text`
-  - Value: `pages.php?page=unique-url`
+    - Value: `pages.php?page=unique-url`
 - **Exempt Scripts** `text`
-  - Value:
+    - Value:
 
 ```JSON
 {

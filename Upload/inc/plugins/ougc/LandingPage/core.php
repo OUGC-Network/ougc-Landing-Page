@@ -30,26 +30,12 @@ declare(strict_types=1);
 
 namespace ougc\LandingPage\Core;
 
-use DateTime;
-use PluginLibrary;
-use PMDataHandler;
-
-use function admin_redirect;
-use function flash_message;
-use function ougc\LandingPage\Admin\pluginInfo;
-
-use const MYBB_ROOT;
-use const PLUGINLIBRARY;
-
-const URL = 'index.php?module=config-ougc_pages';
-
-const DEBUG = false;
-
-function addHooks(string $namespace)
+function addHooks(string $namespace): void
 {
     global $plugins;
 
     $namespaceLowercase = strtolower($namespace);
+
     $definedUserFunctions = get_defined_functions()['user'];
 
     foreach ($definedUserFunctions as $callable) {
@@ -71,157 +57,37 @@ function addHooks(string $namespace)
     }
 }
 
-function loadLanguage(): bool
+function loadLanguage(): void
 {
     global $lang;
 
     if (!isset($lang->ougcLandingPage)) {
         $lang->load('ougcLandingPage');
     }
-
-    return true;
 }
 
-function pluginLibraryRequirements(): object
+function redirect(string $url, int $response_code = 0): void
 {
-    return (object)pluginInfo()['pl'];
-}
+    global $mybb;
 
-function loadPluginLibrary(): bool
-{
-    global $PL, $lang;
+    $url = htmlspecialchars_decode($url);
 
-    loadLanguage();
+    $url = str_replace(array("\n", "\r", ';'), '', $url);
 
-    $fileExists = file_exists(PLUGINLIBRARY);
+    run_shutdown();
 
-    if ($fileExists && !($PL instanceof PluginLibrary)) {
-        require_once PLUGINLIBRARY;
-    }
-
-    if (!$fileExists || $PL->version < pluginLibraryRequirements()->version) {
-        flash_message(
-            $lang->sprintf(
-                $lang->ougcLandingPagePluginLibrary,
-                pluginLibraryRequirements()->url,
-                pluginLibraryRequirements()->version
-            ),
-            'error'
-        );
-
-        admin_redirect('index.php?module=config-plugins');
-    }
-
-    return true;
-}
-
-function runHooks(string $hookName, &$pluginArguments = ''): bool
-{
-    global $plugins;
-
-    if (!($plugins instanceof pluginSystem)) {
-        return false;
-    }
-
-    $plugins->run_hooks('ougcLandingPage' . strtolower($hookName), $pluginArguments);
-
-    return true;
-}
-
-function sanitizeIntegers(array $dataObject): array
-{
-    foreach ($dataObject as $objectKey => &$objectValue) {
-        $objectValue = (int)$objectValue;
-    }
-
-    return array_filter($dataObject);
-}
-
-function url(string $newUrl = ''): string
-{
-    static $setUrl = URL;
-
-    if (($newUrl = trim($newUrl))) {
-        $setUrl = $newUrl;
-    }
-
-    return $setUrl;
-}
-
-function urlSet(string $newUrl)
-{
-    url($newUrl);
-}
-
-function urlGet(): string
-{
-    return url();
-}
-
-function urlBuild(array $urlAppend = [], bool $fetchImportUrl = false, bool $encode = true): string
-{
-    global $PL;
-
-    if (!is_object($PL)) {
-        $PL or require_once PLUGINLIBRARY;
-    }
-
-    if ($fetchImportUrl === false) {
-        if ($urlAppend && !is_array($urlAppend)) {
-            $urlAppend = explode('=', $urlAppend);
-            $urlAppend = [$urlAppend[0] => $urlAppend[1]];
-        }
-    }/* else {
-        $urlAppend = $this->fetch_input_url( $fetchImportUrl );
-    }*/
-
-    return $PL->url_append(urlGet(), $urlAppend, '&amp;', $encode);
-}
-
-function redirect(string $redirectMessage = '', bool $isError = false)
-{
-    if (defined('IN_ADMINCP')) {
-        if ($redirectMessage) {
-            flash_message($redirectMessage, ($isError ? 'error' : 'success'));
-        }
-
-        admin_redirect(urlBuild());
+    if (!my_validate_url($url, true, true)) {
+        header("Location: {$mybb->settings['bburl']}/{$url}", false, $response_code);
     } else {
-        redirectBase(urlBuild(), $redirectMessage);
+        header("Location: {$url}", false, $response_code);
     }
-
-    exit;
-}
-
-function redirectBase(string $url, string $message = '', string $title = '', bool $forceRedirect = false)
-{
-    \redirect($url, $message, $title, $forceRedirect);
-}
-
-function executeTask()
-{
 }
 
 function getSetting(string $settingKey = '')
 {
     global $mybb;
 
-    return isset(SETTINGS[$settingKey]) ? SETTINGS[$settingKey] : (
-    isset($mybb->settings['ougcLandingPage_' . $settingKey]) ? $mybb->settings['ougcLandingPage_' . $settingKey] : false
+    return SETTINGS[$settingKey] ?? (
+        $mybb->settings['ougcLandingPage_' . $settingKey] ?? false
     );
-}
-
-function getTemplate(string $templateName = '', bool $enableHTMLComments = true): string
-{
-    global $templates;
-
-    if (DEBUG) {
-        $filePath = OUGCLANDINGPAGE_ROOT . "/templates/{$templateName}.html";
-
-        $templateContents = file_get_contents($filePath);
-
-        $templates->cache["ougcLandingPage_{$templateName}"] = $templateContents;
-    }
-
-    return $templates->render("ougcLandingPage_{$templateName}", true, $enableHTMLComments);
 }

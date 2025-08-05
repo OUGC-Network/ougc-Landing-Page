@@ -10,5 +10,9 @@
   "exceptScripts": {
     "optionscode": "textarea",
     "value": "{\n  \"captcha.php\": \"\",\n  \"contact.php\": \"\",\n  \"member.php\": {\n    \"action\": [\n      \"register\",\n      \"do_register\",\n      \"login\",\n      \"do_login\",\n      \"logout\"\n    ]\n  }\n}"
+  },
+  "permanentRedirect": {
+    "optionscode": "yesno",
+    "value": 0
   }
 }

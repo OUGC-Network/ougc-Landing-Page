@@ -30,15 +30,11 @@ declare(strict_types=1);
 
 namespace ougc\LandingPage\Hooks\Forum;
 
-use MyBB;
-
 use function ougc\LandingPage\Core\getSetting;
 
 use const THIS_SCRIPT;
 
-use const TIME_NOW;
-
-function global_start()
+function global_start(): void
 {
     global $templatelist, $mybb;
 
@@ -92,8 +88,8 @@ function global_start()
         return;
     }
 
-    $mybb->settings['redirects'] = $mybb->user['showredirect'] = 0;
-
-    redirect($mybb->settings['bburl'] . '/' . getSetting('redirectPage'));
-    //my_setcookie(), my_unsetcookie()
+    \ougc\LandingPage\Core\redirect(
+        getSetting('redirectPage'),
+        getSetting('permanentRedirect') ? 301 : 0
+    );
 }

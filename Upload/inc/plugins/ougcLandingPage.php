@@ -28,21 +28,11 @@
 
 declare(strict_types=1);
 
-use function ougc\LandingPage\Admin\pluginInfo;
-
-use function ougc\LandingPage\Admin\pluginActivate;
-
-use function ougc\LandingPage\Admin\pluginDeactivate;
-
-use function ougc\LandingPage\Admin\pluginInstall;
-
-use function ougc\LandingPage\Admin\pluginIsInstalled;
-
-use function ougc\LandingPage\Admin\pluginUninstall;
-
 use function ougc\LandingPage\Core\addHooks;
-
-use function ougc\LandingPage\Core\loadLanguage;
+use function ougc\LandingPage\Admin\pluginInfo;
+use function ougc\LandingPage\Admin\pluginActivate;
+use function ougc\LandingPage\Admin\pluginIsInstalled;
+use function ougc\LandingPage\Admin\pluginUninstall;
 
 // Die if IN_MYBB is not defined, for security reasons.
 defined('IN_MYBB') || die('This file cannot be accessed directly.');
@@ -62,12 +52,11 @@ define('ougc\LandingPage\Core\SETTINGS', [
     ]
 ]);
 
-const OUGCLANDINGPAGE_ROOT = \MYBB_ROOT . 'inc/plugins/ougc/LandingPage';
+const OUGCLANDINGPAGE_ROOT = MYBB_ROOT . 'inc/plugins/ougc/LandingPage';
 
 require_once OUGCLANDINGPAGE_ROOT . '/core.php';
 
-// PLUGINLIBRARY
-defined('PLUGINLIBRARY') || define('PLUGINLIBRARY', \MYBB_ROOT . 'inc/plugins/pluginlibrary.php');
+defined('PLUGINLIBRARY') || define('PLUGINLIBRARY', MYBB_ROOT . 'inc/plugins/pluginlibrary.php');
 
 if (defined('IN_ADMINCP')) {
     require_once OUGCLANDINGPAGE_ROOT . '/admin.php';
@@ -86,19 +75,9 @@ function ougcLandingPage_info(): array
     return pluginInfo();
 }
 
-function ougcLandingPage_activate()
+function ougcLandingPage_activate(): void
 {
     pluginActivate();
-}
-
-function ougcLandingPage_deactivate()
-{
-    pluginDeactivate();
-}
-
-function ougcLandingPage_install()
-{
-    pluginInstall();
 }
 
 function ougcLandingPage_is_installed(): bool
@@ -106,7 +85,7 @@ function ougcLandingPage_is_installed(): bool
     return pluginIsInstalled();
 }
 
-function ougcLandingPage_uninstall()
+function ougcLandingPage_uninstall(): void
 {
     pluginUninstall();
 }
